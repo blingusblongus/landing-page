@@ -8,6 +8,10 @@ canvas {
   left: 0;
 }
 
+:root {
+  --text-color: rgb(75, 243, 75);
+}
+
 .title {
   color: white;
   background-color: aqua;
@@ -33,4 +37,15 @@ canvas {
 
 .scroll-div {
   height: 100vh;
+}
+
+.info-div {
+  color:var(--text-color);
+  position: relative;
+  top: 40px;
+  z-index: 10;
+}
+
+.text-shadow {
+  text-shadow: 0 0 1em, 0 0 2em;
 }

@@ -94,12 +94,12 @@ scene.add(torus);
 
 /* LIGHTS */
 // POINT LIGHT
-const pointLight = new THREE.PointLight(0xffffff, 2);
+const pointLight = new THREE.PointLight(0xffffff, 1);
 pointLight.position.set(5, 5, 5);
 scene.add(pointLight);
 
 // AMBIENT LIGHT
-const ambientLight = new THREE.AmbientLight(0x246347, .2);
+const ambientLight = new THREE.AmbientLight(0xffdfff, .3);
 scene.add(ambientLight);
 
 /* LISTENERs */
@@ -139,6 +139,24 @@ function movePig() {
     pig.rotation.z = t * .01;
   }
 }
+
+// // create the plane mesh
+// var planeMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
+// var planeGeometry = new THREE.PlaneGeometry();
+// var planeMesh= new THREE.Mesh( planeGeometry, planeMaterial );
+// // add it to the WebGL scene
+// scene.add(planeMesh);
+
+// // create the dom Element
+// var element = document.createElement( 'img' );
+// element.src = 'textures/sprites/ball.png';
+// // create the object3d for this element
+// var cssObject = new THREE.CSS3DObject( element );
+// // we reference the same position and rotation 
+// cssObject.position = planeMesh.position;
+// cssObject.rotation = planeMesh.rotation;
+// // add it to the css scene
+// scene.add(cssObject);
 
 ///// FRAME BY FRAME ANIMATION
 function animate() {
