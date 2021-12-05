@@ -4,30 +4,50 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { AmbientLight, Group } from 'three';
 import { throttle } from 'lodash-es';
+import { CSS3DRenderer, CSS3DObject} from 'three/examples/jsm/renderers/CSS3DRenderer.js';
 
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 
-
 let aspectRatio = window.innerWidth / window.innerHeight;
 
 const scene = new THREE.Scene();
+const cssScene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(60, aspectRatio, 0.1, 1000);
 const resizeUpdateInterval = 1000;
 
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector('#bg'),
-  antialias: true
+  antialias: true,
+  alpha: true
 });
+
+const cssRenderer = new CSS3DRenderer({
+  canvas: document.querySelector('#bg2'),
+  antialias: true,
+  alpha: true
+});
+
+cssRenderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(cssRenderer.domElement);
 // renderer.toneMapping = THREE.ReinhardToneMapping;
 renderer.toneMappingExposure = Math.pow(1.1, 4.0 );
+
+
+let el = document.createElement('div');
+el.innerHTML = '<h1>Hello There</h1>';
+let cssObj = new CSS3DObject(el);
+cssObj.position.set(0,0,-2);
+cssScene.add(cssObj);
 
 const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), .9, .01, .3);
 
 const composer = new EffectComposer(renderer);
 const renderPass = new RenderPass(scene, camera);
+const cssPass = new RenderPass(cssScene, camera);
 composer.addPass(renderPass);
+composer.addPass(cssPass);
 composer.addPass(bloomPass);
 
 const loader = new GLTFLoader();
@@ -85,6 +105,7 @@ composer.setPixelRatio = window.devicePixelRatio;
 composer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(30);
 renderer.render(scene, camera);
+cssRenderer.render(cssScene, camera);
 
 // Torus
 const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
@@ -139,6 +160,8 @@ function movePig() {
     pig.rotation.z = t * .01;
   }
 }
+
+
 
 // // create the plane mesh
 // var planeMaterial = new THREE.MeshBasicMaterial({ wireframe: true });

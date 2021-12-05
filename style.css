@@ -10,6 +10,7 @@ canvas {
 
 :root {
   --text-color: rgb(75, 243, 75);
+  --bg-overlay: rgba(0,0,0,.5);
 }
 
 .title {
@@ -46,6 +47,23 @@ canvas {
   z-index: 10;
 }
 
+.slight-shade {
+  box-shadow: 0 0 2em 1em var(--bg-overlay);
+  background-color: var(--bg-overlay);
+}
+
 .text-shadow {
   text-shadow: 0 0 1em, 0 0 2em;
+}
+
+.placeholder {
+  height: 25vh;
+}
+
+.perspective {
+  perspective: 400px;
+}
+
+.star-war {
+  transform: rotateY(45deg);
 }
