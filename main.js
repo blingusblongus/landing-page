@@ -47,7 +47,7 @@ const composer = new EffectComposer(renderer);
 const renderPass = new RenderPass(scene, camera);
 const cssPass = new RenderPass(cssScene, camera);
 composer.addPass(renderPass);
-composer.addPass(cssPass);
+// composer.addPass(cssPass);
 composer.addPass(bloomPass);
 
 const loader = new GLTFLoader();
@@ -105,7 +105,7 @@ composer.setPixelRatio = window.devicePixelRatio;
 composer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(30);
 renderer.render(scene, camera);
-cssRenderer.render(cssScene, camera);
+// cssRenderer.render(cssScene, camera);
 
 // Torus
 const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
@@ -138,8 +138,10 @@ function onWindowResize() {
 
 // Scroll functions
 window.addEventListener('scroll', (e) => {
+  const t = document.body.getBoundingClientRect().top;
   movePig();
   moveText();
+  document.getElementById('single-box').style.left = -(t * .01) + '%';
 })
 
 // NAME scroll handling

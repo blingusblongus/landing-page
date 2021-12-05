@@ -67,3 +67,26 @@ canvas {
 .star-war {
   transform: rotateY(45deg);
 }
+
+.horiz-scroll {
+  position: fixed;
+  height: 30%;
+  bottom: 10%;
+  left: 0;
+  z-index: 12;
+}
+
+.test-box {
+  width: 200px;
+  height: 200px;
+  background-color: violet;
+  z-index: 10;
+  border: 5px solid green;
+  margin-right: 30px;
+}
+
+#single-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
