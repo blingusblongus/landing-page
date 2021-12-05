@@ -32,13 +32,11 @@ composer.addPass(bloomPass);
 
 const loader = new GLTFLoader();
 let pig, text, newPig;
-let loaded;
 const pigGroup = new THREE.Group();
 
+// Load pigs and randomize instances
 loader.load('./assets/Pig.glb', function (gltf) {
   pig = gltf.scene;
-
-  let meshes = [];
   gltf.scene.traverse((obj) => {
     if (obj.isMesh) {
       obj.translateY(-40)
@@ -56,28 +54,13 @@ loader.load('./assets/Pig.glb', function (gltf) {
 
   }
   scene.add(pigGroup);
-
 }, undefined, function (err) {
   console.error(err);
 })
 
-renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(window.innerWidth, window.innerHeight);
-composer.setPixelRatio = window.devicePixelRatio;
-composer.setSize(window.innerWidth, window.innerHeight);
-camera.position.setZ(30);
-
-renderer.render(scene, camera);
-
-const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-const material = new THREE.MeshBasicMaterial({ color: 0xFF6347, wireframe: true });
-const torus = new THREE.Mesh(geometry, material);
-scene.add(torus);
-
+// Load NAMETEXT
 loader.load('./assets/NICKALLENTEXT2.glb', function (gltf) {
   text = gltf.scene;
-
-  let meshes = [];
   gltf.scene.traverse((obj) => {
     if (obj.isMesh) {
       console.log('material set');
@@ -95,19 +78,29 @@ loader.load('./assets/NICKALLENTEXT2.glb', function (gltf) {
   console.error(err);
 })
 
-const spotlight = new THREE.SpotLight(0xffffff, 1, 5, 23, 1, 1);
+// Config renderer and composer
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setSize(window.innerWidth, window.innerHeight);
+composer.setPixelRatio = window.devicePixelRatio;
+composer.setSize(window.innerWidth, window.innerHeight);
+camera.position.setZ(30);
+renderer.render(scene, camera);
 
-scene.add(spotlight);
+// Torus
+const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+const material = new THREE.MeshBasicMaterial({ color: 0xFF6347, wireframe: true });
+const torus = new THREE.Mesh(geometry, material);
+scene.add(torus);
 
+/* LIGHTS */
+// POINT LIGHT
 const pointLight = new THREE.PointLight(0xffffff, 2);
 pointLight.position.set(5, 5, 5);
 scene.add(pointLight);
 
+// AMBIENT LIGHT
 const ambientLight = new THREE.AmbientLight(0x246347, .2);
 scene.add(ambientLight);
-
-let scaleUp = true;
-const scaleSpeed = .01;
 
 window.addEventListener('resize', onWindowResize, false);
 function onWindowResize() {
@@ -156,17 +149,17 @@ function animate() {
     pig.rotation.y += .02;
     // pig.rotation.z += .02;
 
-    if (scaleUp) {
-      pig.scale.set(pig.scale.x + scaleSpeed, pig.scale.y + scaleSpeed, pig.scale.z + scaleSpeed);
-    } else {
-      pig.scale.set(pig.scale.x - scaleSpeed, pig.scale.y - scaleSpeed, pig.scale.z - scaleSpeed);
-    }
+  //   if (scaleUp) {
+  //     pig.scale.set(pig.scale.x + scaleSpeed, pig.scale.y + scaleSpeed, pig.scale.z + scaleSpeed);
+  //   } else {
+  //     pig.scale.set(pig.scale.x - scaleSpeed, pig.scale.y - scaleSpeed, pig.scale.z - scaleSpeed);
+  //   }
 
-    if (pig.scale.x > 5) {
-      scaleUp = false;
-    } if (pig.scale.x < .5) {
-      scaleUp = true;
-    }
+  //   if (pig.scale.x > 5) {
+  //     scaleUp = false;
+  //   } if (pig.scale.x < .5) {
+  //     scaleUp = true;
+  //   }
   }
 
   composer.render();
