@@ -1,0 +1,36 @@
+body, html {
+  margin: 0;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.title {
+  color: white;
+  background-color: aqua;
+  z-index: 10;
+  position: relative;
+  top: 0;
+  height: 2em;
+  width: 100vw;
+  margin: auto;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-just-center {
+  justify-content: center;
+}
+
+.flex-align-mid {
+  align-items: center;
+}
+
+.scroll-div {
+  height: 100vh;
+}
