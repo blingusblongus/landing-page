@@ -8,6 +8,12 @@ canvas {
   left: 0;
 }
 
+:root {
+  --text-color: rgb(75, 243, 75);
+  --bg-overlay: rgba(41, 13, 95, 0.767);
+  --link-color: rgb(219, 81, 219);
+}
+
 .title {
   color: white;
   background-color: aqua;
@@ -34,3 +40,113 @@ canvas {
 .scroll-div {
   height: 100vh;
 }
+
+.info-div {
+  color:var(--text-color);
+  position: fixed;
+  bottom: 15%;
+  right: -50%;
+  z-index: 10;
+  text-align: center;
+  width: 60%;
+  min-width: 300px;
+  transform: rotateX(30deg);
+  /* mix-blend-mode: color; */
+  /* box-shadow: 0 0 10px var(--bg-overlay), 0 0 20px var(--bg-overlay), 0 0 20px var(--bg-overlay); */
+  /* background-color: var(--bg-overlay); */
+  font-size: 1.1em;
+}
+
+.info-div > video {
+  transform: rotateY(0deg);
+}
+
+.slight-shade {
+  box-shadow: 0 0 2em 1em var(--bg-overlay);
+  background-color: var(--bg-overlay);
+}
+
+.text-shadow {
+  text-shadow: 0 0 1em, 0 0 2em;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.placeholder {
+  height: 25vh;
+}
+
+.perspective {
+  perspective: 400px;
+}
+
+.star-war {
+  transform: rotateY(45deg);
+}
+
+.horiz-scroll {
+  position: fixed;
+  height: 30%;
+  bottom: 10%;
+  left: 0;
+  z-index: 12;
+}
+
+.horiz-scroll > * {
+  right: 0;
+}
+
+.test-box {
+  width: 200px;
+  height: 200px;
+  /* background-color: violet; */
+  z-index: 10;
+  border: 5px solid green;
+  /* margin-right: 30px; */
+  transform: translate(50%, 50%);
+}
+
+#single-box {
+  position: fixed;
+  bottom: 25%;
+  right: -50%;
+  z-index: 15;
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+  mix-blend-mode: darken;
+  background-color: lightslategray;
+}
+
+#cribbage-golf {
+  border-radius: 26px;
+  padding: 0 -40px 0 -20px;
+}
+
+a {
+  color: var(--link-color);
+}
+/* .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: difference;
+  background-color: lime;
+} */
+
+/* #parallax-1 {
+  background-color: lightblue;
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  bottom: -300px;
+  left: 50%;
+} */
+
+/* #parallax-1 > * {
+  position: fixed;
+} */
