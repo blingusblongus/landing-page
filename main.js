@@ -102,6 +102,8 @@ scene.add(pointLight);
 const ambientLight = new THREE.AmbientLight(0x246347, .2);
 scene.add(ambientLight);
 
+/* LISTENERs */
+// Resize handling
 window.addEventListener('resize', onWindowResize, false);
 function onWindowResize() {
 
@@ -113,20 +115,21 @@ function onWindowResize() {
 
 }
 
+// Scroll functions
 window.addEventListener('scroll', (e) => {
   movePig();
   moveText();
 })
 
+// NAME scroll handling
 function moveText() {
   const t = document.body.getBoundingClientRect().top;
-
   text.position.y = 0 - (t * .01);
 }
 
+// PIG scroll handling
 function movePig() {
   const t = document.body.getBoundingClientRect().top;
-  console.log(t);
 
   pig.position.x = t * .01;
   pigGroup.position.y = t * .1;
@@ -136,7 +139,6 @@ function movePig() {
     pig.rotation.z = t * .01;
   }
 }
-
 
 ///// FRAME BY FRAME ANIMATION
 function animate() {
