@@ -65,10 +65,10 @@ loader.load('./assets/Pig.glb', function (gltf) {
 
   pig.scale.set(2, 2, 2);
 
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < 50; i++) {
     newPig = pig.clone(true);
     const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(50));
-    newPig.position.set(x / 2, y * 3 + 160, z);
+    newPig.position.set(x / 2, y * 5 + 160, z);
     newPig.rotation.set(x, y, z);
     pigGroup.add(newPig);
 
@@ -154,7 +154,7 @@ window.addEventListener('scroll', (e) => {
   let infoPos = 0;
   // console.log('percentFromTop', percentFromTop);
 
-  document.getElementById('single-box').style.right = rightPx + '%';
+  // document.getElementById('single-box').style.right = rightPx + '%';
   // document.getElementById('horiz-scroll').style.right = right;
 
 
@@ -165,7 +165,7 @@ window.addEventListener('scroll', (e) => {
     let toLeft = div.getBoundingClientRect().left;
     let toLeftRatio = toLeft/window.innerWidth - div.style.width;
     // let cos = (Math.abs(Math.cos(toLeftRatio * Math.PI)));
-    let right = (infoPos + (t * -0.4) - 90 *(i+1)) + '%';
+    let right = (infoPos + (t * -0.1) - 90 *(i+1)) + '%';
     console.log('sin', (Math.abs(Math.cos(toLeftRatio * Math.PI))))
 
     console.log('toLeft', toLeft/window.innerWidth + div.style.width / 2);
@@ -192,7 +192,7 @@ function movePig() {
   const t = document.body.getBoundingClientRect().top;
 
   pig.position.x = t * .01;
-  pigGroup.position.y = t * .2;
+  pigGroup.position.y = t * .1;
 
   for (let pig of pigGroup.children) {
     pig.rotation.y = t * .01;
