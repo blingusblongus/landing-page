@@ -13,7 +13,7 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 let aspectRatio = window.innerWidth / window.innerHeight;
 
 const scene = new THREE.Scene();
-const cssScene = new THREE.Scene();
+// const cssScene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(68, aspectRatio, 0.1, 1000);
 const resizeUpdateInterval = 1000;
 
@@ -23,29 +23,29 @@ const renderer = new THREE.WebGLRenderer({
   alpha: true
 });
 
-const cssRenderer = new CSS3DRenderer({
-  canvas: document.querySelector('#bg2'),
-  antialias: true,
-  alpha: true
-});
+// const cssRenderer = new CSS3DRenderer({
+//   canvas: document.querySelector('#bg2'),
+//   antialias: true,
+//   alpha: true
+// });
 
-cssRenderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(cssRenderer.domElement);
+// cssRenderer.setSize(window.innerWidth, window.innerHeight);
+// document.body.appendChild(cssRenderer.domElement);
 // renderer.toneMapping = THREE.ReinhardToneMapping;
 renderer.toneMappingExposure = Math.pow(1.1, 4.0 );
 
 
-let el = document.createElement('div');
-el.innerHTML = '<h1>Hello There</h1>';
-let cssObj = new CSS3DObject(el);
-cssObj.position.set(0,0,-2);
-cssScene.add(cssObj);
+// let el = document.createElement('div');
+// el.innerHTML = '<h1>Hello There</h1>';
+// let cssObj = new CSS3DObject(el);
+// cssObj.position.set(0,0,-2);
+// cssScene.add(cssObj);
 
 const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), .9, .01, .3);
 
 const composer = new EffectComposer(renderer);
 const renderPass = new RenderPass(scene, camera);
-const cssPass = new RenderPass(cssScene, camera);
+// const cssPass = new RenderPass(cssScene, camera);
 composer.addPass(renderPass);
 // composer.addPass(cssPass);
 composer.addPass(bloomPass);
@@ -68,7 +68,7 @@ loader.load('./assets/Pig.glb', function (gltf) {
   for (let i = 0; i < 30; i++) {
     newPig = pig.clone(true);
     const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(50));
-    newPig.position.set(x / 2, y * 3 + 80, z);
+    newPig.position.set(x / 2, y * 3 + 160, z);
     newPig.rotation.set(x, y, z);
     pigGroup.add(newPig);
 
@@ -111,7 +111,9 @@ renderer.render(scene, camera);
 const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
 const material = new THREE.MeshBasicMaterial({ color: 0xFF6347, wireframe: true });
 const torus = new THREE.Mesh(geometry, material);
+torus.position.set(0,5,-5)
 scene.add(torus);
+
 
 /* LIGHTS */
 // POINT LIGHT
@@ -160,9 +162,12 @@ window.addEventListener('scroll', (e) => {
   for(let i=0; i<infos.length; i++){
     let div = infos[i];
     // let posLeft = 
-    let right = infoPos + (t * -0.4) - 90 *(i+1) + '%';
     let toLeft = div.getBoundingClientRect().left;
     let toLeftRatio = toLeft/window.innerWidth - div.style.width;
+    // let cos = (Math.abs(Math.cos(toLeftRatio * Math.PI)));
+    let right = (infoPos + (t * -0.4) - 90 *(i+1)) + '%';
+    console.log('sin', (Math.abs(Math.cos(toLeftRatio * Math.PI))))
+
     console.log('toLeft', toLeft/window.innerWidth + div.style.width / 2);
     div.style.right = right;
     div.style.transform = `rotateY(${-90 * (toLeftRatio) + 37}deg)`
@@ -187,7 +192,7 @@ function movePig() {
   const t = document.body.getBoundingClientRect().top;
 
   pig.position.x = t * .01;
-  pigGroup.position.y = t * .1;
+  pigGroup.position.y = t * .2;
 
   for (let pig of pigGroup.children) {
     pig.rotation.y = t * .01;
