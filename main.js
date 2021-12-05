@@ -8,7 +8,6 @@ import { throttle } from 'lodash-es';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
-import { BloomPass } from 'three/examples/jsm/postprocessing/BloomPass.js';
 
 
 let aspectRatio = window.innerWidth / window.innerHeight;
@@ -17,7 +16,6 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(60, aspectRatio, 0.1, 1000);
 const resizeUpdateInterval = 1000;
 
-
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector('#bg'),
   antialias: true
@@ -25,20 +23,12 @@ const renderer = new THREE.WebGLRenderer({
 // renderer.toneMapping = THREE.ReinhardToneMapping;
 renderer.toneMappingExposure = Math.pow(1.1, 4.0 );
 
-
-
-// const unrealBloomPass = new UnrealBloomPass({x: 12, y: 12},.4,.1,.2);
 const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), .9, .01, .3);
-// const bloomPass = new BloomPass(.5, 12, 4, 64);
-
-// composer.addPass( bloomPass );
 
 const composer = new EffectComposer(renderer);
 const renderPass = new RenderPass(scene, camera);
 composer.addPass(renderPass);
 composer.addPass(bloomPass);
-
-
 
 const loader = new GLTFLoader();
 let pig, text, newPig;
@@ -67,19 +57,9 @@ loader.load('./assets/Pig.glb', function (gltf) {
   }
   scene.add(pigGroup);
 
-  // scene.add(pig);
-  // scene.add(pig2);
-  // randomPigs(pig);
 }, undefined, function (err) {
   console.error(err);
 })
-
-// function randomPigs(obj){
-//   const [x,y,z] = Array(3).fill().map(()=> THREE.MathUtils.randFloatSpread(100));
-//   const newObj = obj.clone();
-//   newObj.position.set(x,y,z);
-//   scene.add(newObj);
-// }
 
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -108,7 +88,7 @@ loader.load('./assets/NICKALLENTEXT2.glb', function (gltf) {
     }
   });
   text.rotation.x = Math.PI / 2;
-  text.position.y = 8;
+  text.position.y = document.body.getBoundingClientRect().top * .01;
   text.scale.set(6, 6, 6)
   scene.add(text);
 }, undefined, function (err) {
@@ -148,7 +128,7 @@ window.addEventListener('scroll', (e) => {
 function moveText() {
   const t = document.body.getBoundingClientRect().top;
 
-  text.position.y = t * .02 + 8;
+  text.position.y = 0 - (t * .01);
 }
 
 function movePig() {
