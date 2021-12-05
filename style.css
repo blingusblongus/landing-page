@@ -11,6 +11,7 @@ canvas {
 :root {
   --text-color: rgb(75, 243, 75);
   --bg-overlay: rgba(41, 13, 95, 0.767);
+  --link-color: rgb(219, 81, 219);
 }
 
 .title {
@@ -47,13 +48,17 @@ canvas {
   right: -50%;
   z-index: 10;
   text-align: center;
-  width: 50%;
+  width: 60%;
   min-width: 300px;
   transform: rotateX(30deg);
   /* mix-blend-mode: color; */
   /* box-shadow: 0 0 10px var(--bg-overlay), 0 0 20px var(--bg-overlay), 0 0 20px var(--bg-overlay); */
   /* background-color: var(--bg-overlay); */
   font-size: 1.1em;
+}
+
+.info-div > video {
+  transform: rotateY(0deg);
 }
 
 .slight-shade {
@@ -115,6 +120,14 @@ canvas {
   background-color: lightslategray;
 }
 
+#cribbage-golf {
+  border-radius: 26px;
+  padding: 0 -40px 0 -20px;
+}
+
+a {
+  color: var(--link-color);
+}
 /* .overlay {
   position: absolute;
   top: 0;
