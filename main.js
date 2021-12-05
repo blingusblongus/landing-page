@@ -14,7 +14,7 @@ let aspectRatio = window.innerWidth / window.innerHeight;
 
 const scene = new THREE.Scene();
 const cssScene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(60, aspectRatio, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(68, aspectRatio, 0.1, 1000);
 const resizeUpdateInterval = 1000;
 
 const renderer = new THREE.WebGLRenderer({
@@ -141,7 +141,39 @@ window.addEventListener('scroll', (e) => {
   const t = document.body.getBoundingClientRect().top;
   movePig();
   moveText();
-  document.getElementById('single-box').style.left = -(t * .01) + '%';
+
+  const totalHeight = document.body.clientHeight;
+  const percentTotal = (-1 *t)/(totalHeight - window.innerHeight);
+  const rightPx = ((t * .1) * -1 - 50);
+
+  let firstDiv = document.getElementsByClassName('info-div')[0];
+  let distanceTop = firstDiv.getBoundingClientRect().top;
+  let percentFromTop = 1 - (distanceTop / window.innerHeight);
+  let infoPos = 0;
+  // console.log('percentFromTop', percentFromTop);
+
+  document.getElementById('single-box').style.right = rightPx + '%';
+  // document.getElementById('horiz-scroll').style.right = right;
+
+
+  let infos = document.getElementsByClassName('info-div');
+  for(let i=0; i<infos.length; i++){
+    let div = infos[i];
+    // let posLeft = 
+    let right = infoPos + (t * -0.4) - 90 *(i+1) + '%';
+    let toLeft = div.getBoundingClientRect().left;
+    let toLeftRatio = toLeft/window.innerWidth - div.style.width;
+    console.log('toLeft', toLeft/window.innerWidth + div.style.width / 2);
+    div.style.right = right;
+    div.style.transform = `rotateY(${-90 * (toLeftRatio) + 37}deg)`
+    console.log(div.style.transform);
+
+  }
+
+
+  // document.getElementsByClassName('info-div')[0].style.transform = `rotateX(${(90 * (percentFromTop + .001))}deg)`;
+  // console.log('distanceTop', distanceTop);
+  // console.log('percent', percentTotal);
 })
 
 // NAME scroll handling
