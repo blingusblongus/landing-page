@@ -23,6 +23,12 @@ const renderer = new THREE.WebGLRenderer({
   alpha: true
 });
 
+
+// Make sure to always load from top of page
+window.onbeforeunload = function () {
+  window.scrollTo(0, 0);
+}
+
 // const cssRenderer = new CSS3DRenderer({
 //   canvas: document.querySelector('#bg2'),
 //   antialias: true,
@@ -68,7 +74,7 @@ loader.load('./assets/Pig.glb', function (gltf) {
   for (let i = 0; i < 50; i++) {
     newPig = pig.clone(true);
     const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(50));
-    newPig.position.set(x / 2, y * 5 + 160, z);
+    newPig.position.set(x / 2, y * 7 + 240, z);
     newPig.rotation.set(x, y, z);
     pigGroup.add(newPig);
 
@@ -170,7 +176,7 @@ window.addEventListener('scroll', (e) => {
 
     console.log('toLeft', toLeft/window.innerWidth + div.style.width / 2);
     div.style.right = right;
-    div.style.transform = `rotateY(${-90 * (toLeftRatio) + 37}deg)`
+    div.style.transform = `rotateY(${-90 * (toLeftRatio) + 30}deg)`
     console.log(div.style.transform);
 
   }
@@ -184,7 +190,10 @@ window.addEventListener('scroll', (e) => {
 // NAME scroll handling
 function moveText() {
   const t = document.body.getBoundingClientRect().top;
-  text.position.y = 0 - (t * .01);
+  
+  // const goalDistance = Math.abs((15 / text.position.y)) - 1;
+  // console.log(goalDistance)
+  text.position.y = 0 - (t * .002);
 }
 
 // PIG scroll handling
